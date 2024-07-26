@@ -1,16 +1,33 @@
 import speech_recognition as sr
 import webbrowser
 import pyttsx3
+import requests
 
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
+
+API_KEY = 'b1448eafb3144b1a8600dd4016ac29f0' 
 
 def speak(text):
     engine.say(text)
     engine.runAndWait()
 
+def fetch_news():
+    url = f'https://newsapi.org/v2/top-headlines?country=in&apiKey={API_KEY}'
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            news_data = response.json()
+            articles = news_data.get('articles', [])
+            top_headlines = [article['title'] for article in articles[:7]]  
+            return top_headlines
+        else:
+            return ["Sorry, I couldn't fetch the news right now."]
+    except Exception as e:
+        return [f"Error fetching news: {str(e)}"]
+
 if __name__ == "__main__":
-    speak("jarvis loadaing")
+    speak("intellibot loading")
     while True:
         with sr.Microphone() as source:
             print('Listening...')
@@ -19,29 +36,31 @@ if __name__ == "__main__":
 
             try:
                 command = recognizer.recognize_google(audio)
-                print('Sophie thinks: ' + command)
+                print('User thinks: ' + command)
 
-                # Add some basic commands
                 if 'open Google' in command:
                     webbrowser.open('https://www.google.com')
                     speak('Opening Google')
                 elif 'open code' in command.lower():
                     webbrowser.open('https://codeforces.com/')
-                    speak('Opening codeforces')
-                elif 'play music' in command.lower():
-                    webbrowser.open('https://www.youtube.com/watch?v=4jKkT3d8gdI')
-                    speak('sason ki mala p instrumental')
+                    speak('Opening Codeforces')
                 elif 'play' in command.lower():
                     webbrowser.open('https://www.youtube.com/watch?v=-E2qhkUNKZY')
-                    speak('playing phonk')
+                    speak('Playing phonk')
                 elif 'lit' in command.lower():
                     webbrowser.open('https://www.leetcode.com')
+                    speak('Opening LeetCode')
                 elif 'hello' in command:
-                    speak('hii tanushree i am fine ,how is your day today')
+                    speak('Hi user, I am fine. How is your day today?')
                 elif 'how are you' in command:
                     speak('I am just a program, but I am functioning as expected.')
-                elif command.lower()=='jarvis':
-                    speak("yes i am there")
+                elif command.lower() == 'intellibot':
+                    speak("Yes, I am here.")
+                elif 'news' in command.lower():
+                    speak("Fetching the latest news headlines.")
+                    news_headlines = fetch_news()
+                    for headline in news_headlines:
+                        speak(headline)
                 elif 'stop' in command:
                     speak('Goodbye!')
                     break
