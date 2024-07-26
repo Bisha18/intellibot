@@ -6,7 +6,7 @@ import requests
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
 
-API_KEY = 'b1448eafb3144b1a8600dd4016ac29f0' 
+API_KEY = 'Enter_ur_generated_api_key' 
 
 def speak(text):
     engine.say(text)
