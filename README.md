@@ -29,4 +29,4 @@ pip install requests
 
 # pip -i pyaudio pttsx3 speech recognition
 # create .venv
->>>>>>> 7d3c500dbeab2a43ae66ab29790671d92429bc05
+
