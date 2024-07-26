@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Intellibot
 
 Intellibot is a voice-activated virtual assistant designed to perform tasks such as opening websites, playing videos, greeting users, and providing the latest news headlines through voice commands.
@@ -24,3 +25,8 @@ Install the required Python packages using pip:
 pip install SpeechRecognition
 pip install pyttsx3
 pip install requests
+=======
+
+# pip -i pyaudio pttsx3 speech recognition
+# create .venv
+>>>>>>> 7d3c500dbeab2a43ae66ab29790671d92429bc05
